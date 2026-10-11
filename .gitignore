@@ -54,6 +54,8 @@ htmlcov/
 .tox/
 .nox/
 
+notes/*.~lock
+
 # =========================
 
 # Type Checking
