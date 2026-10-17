@@ -11,7 +11,7 @@ from reflexion_agent.models import AnswerQuestion, ReviseAnswer
 tavily_tool = TavilySearch(max_results=2)
 
 
-def run_queries(search_queries: list[str]) -> list[dict]:
+def run_queries(search_queries: list[str], **kwargs) -> list[dict]:
     """Run queries using the TavilySearch tool."""
     return tavily_tool.batch([{"query": query} for query in search_queries])
 
@@ -22,16 +22,10 @@ execute_tool = ToolNode(
         StructuredTool.from_function(
             func=run_queries,
             name=AnswerQuestion.__name__,
-            description="Run a list of search queries using the TavilySearch tool and return the results.",
-            args_schema={"search_queries": list[str]},
-            return_direct=True,
         ),
         StructuredTool.from_function(
             func=run_queries,
             name=ReviseAnswer.__name__,
-            description="Run a list of search queries using the TavilySearch tool and return the results.",
-            args_schema={"search_queries": list[str]},
-            return_direct=True,
         ),
     ]
 )
